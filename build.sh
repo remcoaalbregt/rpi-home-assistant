@@ -1,7 +1,7 @@
 #!/bin/bash
 
 HA_LATEST=false
-DOCKER_IMAGE_NAME="lroguet/rpi-home-assistant"
+DOCKER_IMAGE_NAME="remcoaalbregt/rpi-home-assistant"
 RASPBIAN_RELEASE="stretch"
 
 log() {
@@ -40,7 +40,7 @@ fi
 ## #####################################################################
 cat << _EOF_ > Dockerfile
 FROM resin/rpi-raspbian:$RASPBIAN_RELEASE
-MAINTAINER Ludovic Roguet <code@fourteenislands.io>
+MAINTAINER Remco Aalbregt <remcoaalbregt@gmail.com>
 
 # Base layer
 ENV ARCH=arm
@@ -64,6 +64,7 @@ RUN apt-get update && \
       bluetooth libbluetooth-dev \
       net-tools nmap \
       iputils-ping \
+      git \
       ssh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
