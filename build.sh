@@ -54,6 +54,7 @@ ENV CROSS_COMPILE=/usr/bin/
 # #11:	20170628 - Added libud3v-dev for https://home-assistant.io/components/zwave/
 # #14: 	20170802 - Added bluetooth and libbluetooth-dev for https://home-assistant.io/components/device_tracker.bluetooth_tracker/
 # #17:	20171203 - Added autoconf for https://home-assistant.io/components/tradfri/
+# #18:  20180811 - Added psycopg2-binary for Postgres database
 RUN apt-get update && \
     apt-get install --no-install-recommends \
       autoconf \
@@ -78,6 +79,7 @@ CMD [ "python3", "-m", "homeassistant", "--config", "/config" ]
 # Install Home Assistant
 RUN pip3 install wheel
 RUN pip3 install homeassistant==$HA_VERSION
+RUN pip3 install psycopg2-binary
 _EOF_
 
 ## #####################################################################
