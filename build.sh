@@ -66,7 +66,7 @@ RUN apt-get update && \
       net-tools nmap \
       iputils-ping \
       git \
-      ssh && \
+      ssh \
       postgresql-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -99,7 +99,7 @@ if [ "$HA_LATEST" = true ]; then
    log "Pushing $DOCKER_IMAGE_NAME:latest"
    docker push $DOCKER_IMAGE_NAME:latest
    echo $HA_VERSION > /var/log/home-assistant/docker-build.version
-   # docker rmi -f $DOCKER_IMAGE_NAME:latest
+   docker rmi -f $DOCKER_IMAGE_NAME:latest
 fi
 
 docker rmi -f $DOCKER_IMAGE_NAME:$HA_VERSION
