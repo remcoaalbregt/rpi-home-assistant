@@ -54,7 +54,7 @@ ENV CROSS_COMPILE=/usr/bin/
 # #11:	20170628 - Added libud3v-dev for https://home-assistant.io/components/zwave/
 # #14: 	20170802 - Added bluetooth and libbluetooth-dev for https://home-assistant.io/components/device_tracker.bluetooth_tracker/
 # #17:	20171203 - Added autoconf for https://home-assistant.io/components/tradfri/
-# #18:  20180811 - Added psycopg2-binary for Postgres database
+# #18:  20180811 - Added postgresql-client for Postgres database
 RUN apt-get update && \
     apt-get install --no-install-recommends \
       autoconf \
@@ -67,6 +67,7 @@ RUN apt-get update && \
       iputils-ping \
       git \
       ssh && \
+      postgresql-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -79,7 +80,6 @@ CMD [ "python3", "-m", "homeassistant", "--config", "/config" ]
 # Install Home Assistant
 RUN pip3 install wheel
 RUN pip3 install homeassistant==$HA_VERSION
-RUN pip3 install psycopg2-binary
 _EOF_
 
 ## #####################################################################
@@ -99,7 +99,7 @@ if [ "$HA_LATEST" = true ]; then
    log "Pushing $DOCKER_IMAGE_NAME:latest"
    docker push $DOCKER_IMAGE_NAME:latest
    echo $HA_VERSION > /var/log/home-assistant/docker-build.version
-   docker rmi -f $DOCKER_IMAGE_NAME:latest
+   # docker rmi -f $DOCKER_IMAGE_NAME:latest
 fi
 
 docker rmi -f $DOCKER_IMAGE_NAME:$HA_VERSION
